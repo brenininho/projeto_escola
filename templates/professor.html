@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-<<<<<<< HEAD
     <title>Tabela de professor</title>
 <style>
 table {
@@ -11,7 +10,7 @@ table {
   width: 100%;
 }
 td, th {
-  border: 5px solid #000000;
+  border: 2px solid #000000;
   text-align: center;
   padding: 8px;
 }
@@ -20,21 +19,28 @@ td, th {
 </head>
 <body>
 
-<h2>HTML Table</h2>
+<h2>Professores Tabela</h2>
+<h3>
+    <a href="/professor/criar">criar professor</a>
+</h3>
 
 <table>
   <tr>
     <th>Id</th>
     <th>name</th>
     <th>serie</th>
+    <th>editar</th>
+    <th>deletar</th>
   </tr>
-    {% for professor in data%}
+    {% for professor in data %}
     <tr>
-        <th>2</th>
-        <th>breno</th>
-        <th>3 ano</th>
+        <td>{{ professor.0 }}</td>
+        <td>{{ professor.1 }}</td>
+        <td>{{ professor.2 }}</td>
+        <td><a href="/professor/editar/{{ professor.0 }}">editar</a></td>
+        <td><a href="/professor/deletar/{{ professor.0 }}">deletar</a></td>
     </tr>
-    {%end%}
+    {% endfor %}
 </table>
 
 </body>
