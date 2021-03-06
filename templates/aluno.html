@@ -6,8 +6,10 @@
 </head>
 
 <body>
+<h3>
+    Criar aluno
+</h3>
 <table>
-    {% for student in data %}
     <tr>
         <th>
             id do aluno
@@ -18,13 +20,26 @@
         <th>
             Ano Escolar
         </th>
+        <th>
+            <form action="http://127.0.0.1:5000/aluno/edit">
+                <input type="submit" value="editar"/>
+            </form>
+        </th>
+        <th>
+            <form action="">
+                <input type="submit" value="excluir"/>
+            </form>
+        </th>
     </tr>
     <tr>
+        {% for student in data %}
         <td>
 
+        <td>
+        </td>
+        {% endfor %}
         </td>
     </tr>
-    {% endfor %}
 </table>
 </body>
 </html>

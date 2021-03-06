@@ -8,6 +8,7 @@ c = conn.cursor()
 c.execute("CREATE TABLE IF NOT EXISTS professor ( name text, school_year text)")
 conn.close()
 
+
 @app.route('/')
 def home():
     return render_template("home.html", messages=False)
@@ -22,6 +23,11 @@ def aluno():
     conn.commit()
     data = c.fetchall()
     return render_template("aluno.html", data=data)
+
+
+@app.route('/aluno/edit')
+def aluno_edit():
+    return render_template("aluno_edit.html")
 
 
 @app.route('/professor')
@@ -46,7 +52,6 @@ def professor_criar():
 @app.route('/professor/deletar/<int:id>')
 def professor_deletar(id):
     pass
-
 
 
 @app.route('/professor/editar/<int:id>')
