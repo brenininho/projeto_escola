@@ -19,15 +19,25 @@ def aluno():
     conn = sqlite3.connect("system.db")
     c = conn.cursor()
     # c.execute("CREATE TABLE IF NOT EXISTS student (name text, school_year text)")
-    c.execute("INSERT INTO student VALUES ('Breno Valle', 3 Ano Médio'")
+    # c.execute("INSERT INTO student VALUES ('Breno Valle', 3 ano médio'")
     conn.commit()
     data = c.fetchall()
     return render_template("aluno.html", data=data)
 
 
-@app.route('/aluno/edit')
-def aluno_edit():
+@app.route('/aluno/criar')
+def aluno_criar():
+    return render_template("aluno_criar.html")
+
+
+@app.route('/aluno/editar/<int:id>')
+def aluno_edit(id):
     return render_template("aluno_edit.html")
+
+
+@app.route('/aluno/deletar/<int:id>')
+def aluno_deletar(id):
+    pass
 
 
 @app.route('/professor')

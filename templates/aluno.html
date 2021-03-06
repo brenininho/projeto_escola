@@ -2,12 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Aluno</title>
+    <title>Aluno de Alunos</title>
+    <style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+td, th {
+  border: 2px solid #000000;
+  text-align: center;
+  padding: 8px;
+}
+    </style>
 </head>
-
 <body>
 <h3>
-    Criar aluno
+    Tabela de Alunos
 </h3>
 <table>
     <tr>
@@ -21,24 +32,34 @@
             Ano Escolar
         </th>
         <th>
-            <form action="http://127.0.0.1:5000/aluno/edit">
-                <input type="submit" value="editar"/>
-            </form>
+            Editar
         </th>
         <th>
-            <form action="">
-                <input type="submit" value="excluir"/>
-            </form>
+            Excluir
         </th>
     </tr>
     <tr>
         {% for student in data %}
         <td>
-
+            {{ student.0 }}
+        </td>
         <td>
+            {{ student.1 }}
+        </td>
+        <td>
+            {{ student.2 }}
+        </td>
+        <td>
+            <form action="http://127.0.0.1:5000/aluno/editar/{{ student.0 }}">
+                <input type="submit" value="editar"/>
+            </form>
+        </td>
+        <td>
+            <form action="">
+                <input type="submit" value="excluir"/>
+            </form>
         </td>
         {% endfor %}
-        </td>
     </tr>
 </table>
 </body>
