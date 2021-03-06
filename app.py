@@ -1,9 +1,6 @@
 import sqlite3
 from flask import Flask, render_template
-<<<<<<< HEAD
-=======
 
->>>>>>> 1b9c39ce868c654ac26e1913fe317cf4cb15d8de
 app = Flask(__name__)
 
 
@@ -14,9 +11,6 @@ def home():
 
 @app.route('/aluno')
 def aluno():
-<<<<<<< HEAD
-    return render_template("aluno.html")
-=======
     conn = sqlite3.connect("system.db")
     c = conn.cursor()
     # c.execute("CREATE TABLE IF NOT EXISTS student (name text, school_year text)")
@@ -33,16 +27,8 @@ def professor():
     # c.execute("CREATE TABLE IF NOT EXISTS professor (name text, school_year text)")
     conn.commit()
     return render_template("professor.html")
->>>>>>> 1b9c39ce868c654ac26e1913fe317cf4cb15d8de
 
 
 @app.route('/nota')
 def nota():
     return render_template("nota.html")
-
-
-
-@app.route('/professor')
-def professor():
-    return render_template("professor.html")
-
