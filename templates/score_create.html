@@ -4,17 +4,28 @@ import sqlite3
 <head>
     <meta charset="UTF-8">
     <title>Criar nota</title>
+    <style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+td, th {
+  border: 2px solid #000000;
+  text-align: center;
+  padding: 8px;
+}
+    </style>
 </head>
 <body>
 <h3>
     Criar nota
 </h3>
-<form action="/score/criar/salvar" method="post">
-    <input type="text" placeholder="digite nome do aluno" name="nome">
+<form action="/nota/criar/salvar" method="post">
+    <input type="text" placeholder="digite a materia" name="score">
     <br><br>
     <label for="topic">Escolha qual nota deseja:</label>
     <select name="topic" id="topic">
-        <option value=""></option>
         <option value="1">1</option>
         <option value="1">1</option>
         <option value="2">2</option>

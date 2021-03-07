@@ -185,7 +185,7 @@ def score_edit_save(id):
 
 
 @app.route('/nota/deletar/<int:id>')
-def aluno_deletar(id):
+def score_deletar(id):
     conn = sqlite3.connect("system.db")
     c = conn.cursor()
     c.execute(f"DELETE FROM score WHERE rowid = {id}")
