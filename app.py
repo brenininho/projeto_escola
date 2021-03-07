@@ -3,8 +3,48 @@ from flask import Flask, render_template
 import ipdb
 from flask import request
 from flask import abort, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:123@127.0.0.1/sistema'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+
+class Student(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), unique=True)
+    school_year = db.Column(db.String(80), unique=True)
+
+    def __init__(self, id, name, school_year):
+        self.id = id
+        self.name = name
+        self.school_year = school_year
+
+
+class Professor(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), unique=True)
+    serie = db.Column(db.String(80), unique=True)
+
+    def __init__(self, id, name, serie):
+        self.id = id
+        self.name = name
+        self.serie = serie
+
+
+class Scores(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    id_aluno = db.Column(db.Integer, unique=True)
+    score = db.Column(db.Float, unique=True)
+    topic = db.Column(db.String(80), unique=True)
+
+    def __init__(self, id, id_aluno, score, topic):
+        self.id = id
+        self.id_aluno = id_aluno
+        self.score = score
+        self.topic = topic
 
 conn = sqlite3.connect("system.db")
 c = conn.cursor()
