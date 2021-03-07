@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Aluno Criar</title>
+    <title>Cadastrar Aluno</title>
 </head>
 <body>
 <h3>
     Cadastrar Aluno
 </h3>
-<form action="">
+<form action="/aluno/criar/salvar" method="post">
     <input type="text" placeholder="digite seu nome" name="nome">
     <br><br>
     <label for="serie">Escolha uma série:</label>
@@ -22,5 +22,9 @@
     <br><br>
     <input type="submit" value="enviar"/>
 </form>
+<br>
+<a href="/aluno">
+    Retornar guia
+</a>
 </body>
 </html>

@@ -8,7 +8,12 @@ app = Flask(__name__)
 
 conn = sqlite3.connect("system.db")
 c = conn.cursor()
+
 c.execute("CREATE TABLE IF NOT EXISTS professor ( name text, serie text)")
+
+c.execute("CREATE TABLE IF NOT EXISTS student ( name text, school_year text)")
+conn.commit()
+
 conn.close()
 
 
@@ -21,22 +26,55 @@ def home():
 def aluno():
     conn = sqlite3.connect("system.db")
     c = conn.cursor()
-    # c.execute("CREATE TABLE IF NOT EXISTS student (name text, school_year text)")
-    # c.execute("INSERT INTO student VALUES ('Breno Valle', 3 ano médio'")
-    conn.commit()
+    c.execute("SELECT rowid, * FROM student")
     data = c.fetchall()
     return render_template("aluno.html", data=data)
 
 
 @app.route('/aluno/criar')
 def aluno_criar():
-    return render_template("aluno_criar.html")
+    return render_template("aluno_create.html")
+
+
+@app.route('/aluno/criar/salvar', methods=['POST'])
+def aluno_criar_salvar():
+    nome = request.form["nome"]
+    serie = request.form["serie"]
+    conn = sqlite3.connect("system.db")
+    c = conn.cursor()
+    c.execute(f"INSERT INTO student VALUES ('{nome}', '{serie}')")
+    conn.commit()
+    return redirect(url_for('aluno'))
 
 
 @app.route('/aluno/editar/<int:id>')
 def aluno_edit(id):
-    return render_template("aluno_edit.html")
+    conn = sqlite3.connect("system.db")
+    c = conn.cursor()
+    c.execute(f"SELECT rowid, * FROM student WHERE rowid = {id}")
+    data = c.fetchone()
+    return render_template("aluno_edit.html", data=data)
 
+
+@app.route('/aluno/editar/salvar/<int:id>', methods=['POST'])
+def aluno_editar_salvar(id):
+    nome = request.form["nome"]
+    serie = request.form["serie"]
+    conn = sqlite3.connect("system.db")
+    c = conn.cursor()
+    c.execute(f"UPDATE student SET name = '{nome}', school_year = '{serie}'  WHERE rowid = {id}")
+    conn.commit()
+    return redirect(url_for('aluno'))
+
+
+
+@app.route('/aluno/deletar/<int:id>')
+def aluno_deletar(id):
+    conn = sqlite3.connect("system.db")
+    c = conn.cursor()
+    c.execute(f"DELETE FROM student WHERE rowid = {id}")
+    conn.commit()
+    return redirect(url_for('aluno'))
 
 
 
@@ -81,6 +119,7 @@ def professor_editar(id):
     return render_template("professor_editar.html", data=data)
 
 
+
 @app.route('/professor/editar/salvar/<int:id>',  methods=['POST'])
 def professor_editar_salvar(id):
     nome = request.form["name"]
@@ -102,3 +141,7 @@ def professor_criar_salvar():
     c.execute(f"INSERT INTO professor VALUES ('{nome}', '{serie}')")
     conn.commit()
     return redirect(url_for('professor'))
+
+
+
+
