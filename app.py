@@ -9,7 +9,9 @@ app = Flask(__name__)
 conn = sqlite3.connect("system.db")
 c = conn.cursor()
 
-c.execute("CREATE TABLE IF NOT EXISTS professor ( name text, serie text)")
+c.execute("""
+CREATE TABLE IF NOT EXISTS professor ( name text, serie text)
+""")
 c.execute("CREATE TABLE IF NOT EXISTS scores (id_aluno int, score real, topic text)")
 c.execute("CREATE TABLE IF NOT EXISTS student ( name text, school_year text)")
 conn.commit()

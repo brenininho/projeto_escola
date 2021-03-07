@@ -1,0 +1,47 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+
+  db:
+
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+    networks:
+      - overlay
+    ports:
+      - 3306:3306
+
+  adminer:
+    image: adminer
+    restart: always
+    networks:
+      - overlay
+    depends_on:
+      - db
+    ports:
+      - 8080:8080
+
+  phpmyadmin:
+    image: phpmyadmin
+    environment:
+      PMA_ARBITRARY: 1
+      UPLOAD_LIMIT: 123M
+      MAX_EXECUTION_TIME: 125
+      HIDE_PHP_VERSION: 1
+    depends_on:
+      - db
+    networks:
+      - overlay
+    ports:
+      - 8081:80
+
+networks:
+  overlay:
+
+volumes:
+  db_data: {}
