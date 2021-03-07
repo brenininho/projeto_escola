@@ -16,26 +16,30 @@ td, th {
 }
     </style>
 </head>
-
-
-<title>Nota</title>
+<title>Score</title>
 </head>
 <body>
+<h2>Notas Tabela</h2>
+<h3>
+    <a href="/nota/criar">criar nota</a>
+</h3>
 <table>
     <tr>
-        <th>
-            id
-        </th>
-        <th>
-            id do aluno
-        </th>
-        <th>
-            Nota
-        </th>
-        <th>
-            Matéria
-        </th>
+    <th>Id</th>
+    <th>score</th>
+    <th>materia</th>
+    <th>editar</th>
+    <th>deletar</th>
+  </tr>
+    {% for score in data %}
+    <tr>
+        <td>{{ score.0 }}</td>
+        <td>{{ score.1 }}</td>
+        <td>{{ score.2 }}</td>
+        <td><a href="/score/editar/{{ score.0 }}">editar</a></td>
+        <td><a href="/score/deletar/{{ score.0 }}">deletar</a></td>
     </tr>
+    {% endfor %}
 </table>
 
 </body>
