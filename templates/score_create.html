@@ -1,21 +1,11 @@
 <!DOCTYPE html>
 import sqlite3
+conn = sqlite3.connect("system.db")
+c = conn.cursor()
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Criar nota</title>
-    <style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-td, th {
-  border: 2px solid #000000;
-  text-align: center;
-  padding: 8px;
-}
-    </style>
 </head>
 <body>
 <h3>
