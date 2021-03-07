@@ -5,9 +5,26 @@
     <title>Editar informações do aluno</title>
 </head>
 <body>
-<h1>
-    Editar informações do aluno
-</h1>
-<input type="text">
+<h3>
+    Editar informações do Aluno
+</h3>
+<form action="/aluno/editar/salvar/{{ data.0 }}" method="post">
+    <label for="nome">Ensira seu nome:</label><br>
+    <input type="text" placeholder="digite seu nome" name="nome" id="nome" value="{{ data.1 }}">
+    <input type="hidden" value="{{ data.0 }}" name="id">
+    <br><br>
+    <label for="serie">Escolha uma série:</label>
+    <select name="serie" id="serie">
+        <option value=""></option>
+        <option value="9 Ano Fundamental" {% if data[2] == "9 Ano Fundamental" %} selected="selected" {% endif %}>9 Ano </option>
+        <option value="1 Ano Médio" {% if data[2] == "1 Ano Médio" %} selected="selected" {% endif %}>1 Ano Médio </option>
+        <option value="2 Ano Médio" {% if data[2] == "2 Ano Médio" %} selected="selected" {% endif %}>2 Ano Médio </option>
+        <option value="3 Ano Médio" {% if data[2] == "3 Ano Médio" %} selected="selected" {% endif %}>3 Ano Médio </option>
+    </select>
+    <br><br>
+    <input type="submit" value="enviar"/>
+</form>
+<br>
+<a href="http://127.0.0.1:5000/aluno">Retornar guia</a>
 </body>
 </html>

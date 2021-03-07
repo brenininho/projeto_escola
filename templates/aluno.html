@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Aluno de Alunos</title>
+    <title>Tabela de Alunos</title>
     <style>
 table {
   font-family: arial, sans-serif;
@@ -20,6 +20,9 @@ td, th {
 <h3>
     Tabela de Alunos
 </h3>
+<form action="/aluno/criar">
+    <input type="submit" value="criar"/>
+</form>
 <table>
     <tr>
         <th>
@@ -38,8 +41,8 @@ td, th {
             Excluir
         </th>
     </tr>
+    {% for student in data %}
     <tr>
-        {% for student in data %}
         <td>
             {{ student.0 }}
         </td>
@@ -50,17 +53,17 @@ td, th {
             {{ student.2 }}
         </td>
         <td>
-            <form action="http://127.0.0.1:5000/aluno/editar/{{ student.0 }}">
+            <form action="/aluno/editar/{{ student.0 }}">
                 <input type="submit" value="editar"/>
             </form>
         </td>
         <td>
-            <form action="">
+            <form action="/aluno/deletar/{{ student.0 }}">
                 <input type="submit" value="excluir"/>
             </form>
         </td>
-        {% endfor %}
     </tr>
+    {% endfor %}
 </table>
 </body>
 </html>
