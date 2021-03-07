@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 import sqlite3
+conn = sqlite3.connect("system.db")
+c = conn.cursor()
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,7 +14,7 @@ import sqlite3
 <form action="/professor/criar/salvar" method="post">
     <input type="text" placeholder="digite nome do profissional" name="nome">
     <br><br>
-    <label for="serie">Escolha o ano desejado:</label>
+    <label for="serie">Escolha um ano:</label>
     <select name="serie" id="serie">
         <option value=""></option>
         <option value="9 Ano">9 Ano</option>
