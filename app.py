@@ -142,14 +142,24 @@ def professor_editar_salvar(id):
 def score():
     conn = sqlite3.connect("system.db")
     c = conn.cursor()
-    c.execute("SELECT rowid, * FROM scores")
-    data = c.fetchall()
+    c.execute("SELECT rowid, * FROM student")
+    alunos = c.fetchall()
+    c.execute("SELECT rowid, id_aluno, score, topic  FROM scores")
+    notas = c.fetchall()
+    data = {
+        "alunos": alunos,
+        "notas": notas
+    }
     return render_template("score.html", data=data)
 
 
 @app.route('/nota/criar')
 def score_create():
-    return render_template("score_create.html")
+    conn = sqlite3.connect("system.db")
+    c = conn.cursor()
+    c.execute("SELECT rowid, * FROM student")
+    data = c.fetchall()
+    return render_template("score_create.html", data=data)
 
 
 @app.route('/nota/criar/salvar', methods=['POST'])
@@ -159,7 +169,7 @@ def score_create_save():
     id_aluno = request.form["id_aluno"]
     conn = sqlite3.connect("system.db")
     c = conn.cursor()
-    c.execute(f"INSERT INTO scores VALUES ('{score}', '{topic}', {id_aluno})")
+    c.execute(f"INSERT INTO scores VALUES ('{id_aluno}', '{score}', '{topic}' )")
     conn.commit()
     return redirect(url_for('score'))
 
@@ -169,7 +179,13 @@ def score_edit(id):
     conn = sqlite3.connect("system.db")
     c = conn.cursor()
     c.execute(f"SELECT rowid, * FROM scores WHERE rowid = {id}")
-    data = c.fetchone()
+    nota = c.fetchone()
+    c.execute("SELECT rowid, * FROM student")
+    alunos = c.fetchall()
+    data = {
+        "nota": nota,
+        "alunos": alunos
+    }
     return render_template("score_edit.html", data=data)
 
 
@@ -177,9 +193,10 @@ def score_edit(id):
 def score_edit_save(id):
     score = request.form["score"]
     topic = request.form["topic"]
+    id_aluno = request.form["id_aluno"]
     conn = sqlite3.connect("system.db")
     c = conn.cursor()
-    c.execute(f"UPDATE scores SET score = '{score}', topic = '{topic}'  WHERE rowid = {id}")
+    c.execute(f"UPDATE scores SET id_aluno = '{id_aluno}', score = '{score}', topic = '{topic}'  WHERE rowid = {id}")
     conn.commit()
     return redirect(url_for('.score'))
 

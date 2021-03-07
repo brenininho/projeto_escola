@@ -22,19 +22,30 @@ td, th {
 <h3>
     <a href="/nota/criar">criar nota</a>
 </h3>
+{{ data.nota }}
+<br />
+{{ data.alunos }}
 <table>
     <tr>
     <th>Id</th>
+    <th>Nome_aluno</th>
     <th>score</th>
     <th>materia</th>
     <th>editar</th>
     <th>deletar</th>
   </tr>
-    {% for score in data %}
+    {% for score in data.notas %}
     <tr>
-        <td>{{ score.0 }}</td>
-        <td>{{ score.1 }}</td>
+        <td>{{ score[0] }}</td>
+        <td>
+            {% for aluno in data.alunos %}
+                {% if aluno[0] == score[1] %}
+                    {{ aluno[1] }}
+                {% endif %}
+            {% endfor %}
+        </td>
         <td>{{ score.2 }}</td>
+        <td>{{ score.3 }}</td>
         <td><a href="/nota/editar/{{ score.0 }}">editar</a></td>
         <td><a href="/nota/deletar/{{ score.0 }}">deletar</a></td>
     </tr>

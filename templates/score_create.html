@@ -26,8 +26,10 @@ c = conn.cursor()
     </select>
     <br><br>
     <select name="id_aluno" id="id_aluno">
-        <option value="1">João</option>
-        <option value="2">Breno Aguiar</option>
+        <option value=""></option>
+        {% for name in data %}
+        <option value="{{name.0}}">{{name.1}}</option>
+        {% endfor %}
     </select>
     <input type="submit" value="Enviar cadastro">
 </form>
