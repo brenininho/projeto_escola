@@ -12,23 +12,23 @@ c = conn.cursor()
     Criar nota
 </h3>
 <form action="/nota/criar/salvar" method="post">
-    <input type="text" placeholder="digite a materia" name="score">
+    <input type="text" placeholder="digite a nota ex:6.5" name="score">
     <br><br>
-    <label for="topic">Escolha qual nota deseja:</label>
+    <label for="topic">Escolha qual matéria deseja:</label>
     <select name="topic" id="topic">
-        <option value="1">1</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
+        <option value="Matemática">Matemática</option>
+        <option value="Português">Português</option>
+        <option value="História">História</option>
+        <option value="Ciências">Ciências</option>
+        <option value="Filosofia">Filosofia</option>
+        <option value="Sociologia">Sociologia</option>
+        <option value="Geografia">Geografia</option>
     </select>
     <br><br>
+    <select name="id_aluno" id="id_aluno">
+        <option value="1">João</option>
+        <option value="2">Breno Aguiar</option>
+    </select>
     <input type="submit" value="Enviar cadastro">
 </form>
 </body>
