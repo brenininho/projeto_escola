@@ -1,10 +1,27 @@
 <!DOCTYPE html>
+import sqlite3
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Professor_criar</title>
 </head>
 <body>
-
+<h3>
+    Cadastrar Professor
+</h3>
+<form action="/professor/criar/salvar" method="post">
+    <input type="text" placeholder="digite nome do profissional" name="nome">
+    <br><br>
+    <label for="serie">Escolha o ano desejado:</label>
+    <select name="serie" id="serie">
+        <option value=""></option>
+        <option value="9 Ano">9 Ano</option>
+        <option value="1 Ano">1 Ano</option>
+        <option value="2 Ano">2 Ano</option>
+        <option value="3 Ano">3 Ano</option>
+    </select>
+    <br><br>
+    <input type="submit" value="Enviar cadastro">
+</form>
 </body>
 </html>
