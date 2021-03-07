@@ -10,7 +10,7 @@ conn = sqlite3.connect("system.db")
 c = conn.cursor()
 
 c.execute("CREATE TABLE IF NOT EXISTS professor ( name text, serie text)")
-c.execute("CREATE TABLE IF NOT EXISTS score (score real, topic text)")
+c.execute("CREATE TABLE IF NOT EXISTS scores (score real, topic text)")
 c.execute("CREATE TABLE IF NOT EXISTS student ( name text, school_year text)")
 conn.commit()
 
@@ -142,7 +142,7 @@ def professor_editar_salvar(id):
 def score():
     conn = sqlite3.connect("system.db")
     c = conn.cursor()
-    c.execute("SELECT rowid, * FROM score")
+    c.execute("SELECT rowid, * FROM scores")
     data = c.fetchall()
     return render_template("score.html", data=data)
 
@@ -158,7 +158,7 @@ def score_create_save():
     topic = request.form["topic"]
     conn = sqlite3.connect("system.db")
     c = conn.cursor()
-    c.execute(f"INSERT INTO score VALUES ('{score}', '{topic}')")
+    c.execute(f"INSERT INTO scores VALUES ('{score}', '{topic}')")
     conn.commit()
     return redirect(url_for('nota'))
 
@@ -167,7 +167,7 @@ def score_create_save():
 def score_edit(id):
     conn = sqlite3.connect("system.db")
     c = conn.cursor()
-    c.execute(f"SELECT rowid, * FROM score WHERE rowid = {id}")
+    c.execute(f"SELECT rowid, * FROM scores WHERE rowid = {id}")
     data = c.fetchone()
     return render_template("score_edit.html", data=data)
 
@@ -178,16 +178,16 @@ def score_edit_save(id):
     topic = request.form["topic"]
     conn = sqlite3.connect("system.db")
     c = conn.cursor()
-    c.execute(f"UPDATE score SET score = '{score}', topic = '{topic}'  WHERE rowid = {id}")
+    c.execute(f"UPDATE score SET scores = '{score}', topic = '{topic}'  WHERE rowid = {id}")
     conn.commit()
     return redirect(url_for('nota'))
 
 
 
 @app.route('/nota/deletar/<int:id>')
-def aluno_deletar(id):
+def score_delete(id):
     conn = sqlite3.connect("system.db")
     c = conn.cursor()
-    c.execute(f"DELETE FROM score WHERE rowid = {id}")
+    c.execute(f"DELETE FROM scores WHERE rowid = {id}")
     conn.commit()
     return redirect(url_for('nota'))
