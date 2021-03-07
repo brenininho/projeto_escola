@@ -89,7 +89,7 @@ def professor():
 
 @app.route('/nota')
 def nota():
-    return render_template("nota.html")
+    return render_template("score.html")
 
 
 @app.route('/professor/criar')
