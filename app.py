@@ -102,7 +102,7 @@ def professor_criar():
 
 
 @app.route('/professor/deletar/<int:id>')
-def aluno_deletar(id):
+def professor_deletar(id):
     conn = sqlite3.connect("system.db")
     c = conn.cursor()
     c.execute(f"DELETE FROM professor WHERE rowid = {id}")
