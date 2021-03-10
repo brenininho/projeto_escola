@@ -14,6 +14,7 @@ td, th {
   text-align: center;
   padding: 8px;
 }
+
     </style>
 </head>
 <body>
@@ -24,6 +25,7 @@ td, th {
     <input type="submit" value="criar"/>
 </form>
 <table>
+    <thead>
     <tr>
         <th>
             id do aluno
@@ -41,30 +43,35 @@ td, th {
             Excluir
         </th>
     </tr>
-    {% for student in data %}
+    </thead>
+    {% for student in all_data %}
     <tr>
         <td>
-            {{ student.0 }}
+            {{ student.id }}
         </td>
         <td>
-            {{ student.1 }}
+            {{ student.name }}
         </td>
         <td>
-            {{ student.2 }}
+            {{ student.school_year }}
         </td>
         <td>
-            <form action="/aluno/editar/{{ student.0 }}">
+            <form action="/aluno/editar/{{ student.id }}">
                 <input type="submit" value="editar"/>
             </form>
         </td>
         <td>
-            <form action="/aluno/deletar/{{ student.0 }}">
+            <form action="/aluno/deletar/{{ student.id }}">
                 <input type="submit" value="excluir"/>
             </form>
         </td>
     </tr>
     {% endfor %}
 </table>
+<br>
+<a href="/">
+    Retornar guia
+</a>
 </body>
 </html>
 
