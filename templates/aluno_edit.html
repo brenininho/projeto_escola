@@ -8,18 +8,18 @@
 <h3>
     Editar informações do Aluno
 </h3>
-<form action="/aluno/editar/salvar/{{ data.0 }}" method="post">
-    <label for="nome">Ensira seu nome:</label><br>
-    <input type="text" placeholder="digite seu nome" name="nome" id="nome" value="{{ data.1 }}">
-    <input type="hidden" value="{{ data.0 }}" name="id">
+<form action="/aluno/editar/{{ data.id }}" method="post">
+    <label for="name">Ensira seu nome:</label><br>
+    <input type="text" placeholder="digite seu nome" name="name" id="name" value="{{ data.name }}">
+    <input type="hidden" value="{{ data.id }}" name="id">
     <br><br>
     <label for="serie">Escolha uma série:</label>
     <select name="serie" id="serie">
         <option value=""></option>
-        <option value="9 Ano Fundamental" {% if data[2] == "9 Ano Fundamental" %} selected="selected" {% endif %}>9 Ano </option>
-        <option value="1 Ano Médio" {% if data[2] == "1 Ano Médio" %} selected="selected" {% endif %}>1 Ano Médio </option>
-        <option value="2 Ano Médio" {% if data[2] == "2 Ano Médio" %} selected="selected" {% endif %}>2 Ano Médio </option>
-        <option value="3 Ano Médio" {% if data[2] == "3 Ano Médio" %} selected="selected" {% endif %}>3 Ano Médio </option>
+        <option value="9 Ano Fundamental" {% if data.year == "9 Ano" %} selected="selected" {% endif %}>9 Ano </option>
+        <option value="1 Ano Médio" {% if data.year == "1 Ano" %} selected="selected" {% endif %}>1 Ano Médio </option>
+        <option value="2 Ano Médio" {% if data.year == "2 Ano" %} selected="selected" {% endif %}>2 Ano Médio </option>
+        <option value="3 Ano Médio" {% if data.year == "3 Ano" %} selected="selected" {% endif %}>3 Ano Médio </option>
     </select>
     <br><br>
     <input type="submit" value="enviar"/>

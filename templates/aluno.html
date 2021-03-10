@@ -44,7 +44,7 @@ td, th {
         </th>
     </tr>
     </thead>
-    {% for student in all_data %}
+    {% for student in data %}
     <tr>
         <td>
             {{ student.id }}
@@ -53,7 +53,7 @@ td, th {
             {{ student.name }}
         </td>
         <td>
-            {{ student.school_year }}
+            {{ student.year }}
         </td>
         <td>
             <form action="/aluno/editar/{{ student.id }}">

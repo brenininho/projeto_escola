@@ -14,11 +14,11 @@ db = SQLAlchemy(app)
 class Student(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(80), unique=True)
-    school_year = db.Column(db.String(80), unique=True)
+    year = db.Column(db.String(80), unique=True)
 
-    def __init__(self, name, school_year):
+    def __init__(self, name, year):
         self.name = name
-        self.school_year = school_year
+        self.year = year
 
 
 class Professor(db.Model):
@@ -49,7 +49,7 @@ c.execute("""
 CREATE TABLE IF NOT EXISTS professor ( name text, serie text)
 """)
 c.execute("CREATE TABLE IF NOT EXISTS scores (id_aluno int, score real, topic text)")
-c.execute("CREATE TABLE IF NOT EXISTS student ( name text, school_year text)")
+c.execute("CREATE TABLE IF NOT EXISTS student ( name text, year text)")
 conn.commit()
 
 conn.close()
@@ -62,13 +62,13 @@ def home():
 
 @app.route('/aluno')
 def aluno():
-    all_data = Student.query.all()
+    data = Student.query.all()
 
     # conn = sqlite3.connect("system.db")
     # c = conn.cursor()
     # c.execute("SELECT rowid, * FROM student")
     # data = c.fetchall()
-    return render_template("aluno.html", all_data=all_data)
+    return render_template("aluno.html", data=data)
 
 
 @app.route('/aluno/criar')
@@ -79,7 +79,7 @@ def aluno_criar():
 @app.route('/aluno/criar/salvar', methods=['POST'])
 def aluno_criar_salvar():
     if request.method == 'POST':
-        student1 = Student(name=request.form['name'], school_year=request.form['school_year'])
+        student1 = Student(name=request.form['name'], year=request.form['year'])
         db.session.add(student1)
         db.session.commit()
         return redirect(url_for('aluno'))
@@ -92,26 +92,20 @@ def aluno_criar_salvar():
     # conn.commit()
 
 
-
-@app.route('/aluno/editar/<int:id>')
+@app.route('/aluno/editar/<int:id>', methods=['GET', 'POST'])
 def aluno_edit(id):
-    conn = sqlite3.connect("system.db")
-    c = conn.cursor()
-    c.execute(f"SELECT rowid, * FROM student WHERE rowid = {id}")
-    data = c.fetchone()
+    data = Student.query.get(id)
+    if request.method == 'POST':
+        data.name = request.form['name']
+        data.year = request.form['year']
+        db.session.commit()
+        return redirect(url_for('aluno'))
     return render_template("aluno_edit.html", data=data)
 
-
-@app.route('/aluno/editar/salvar/<int:id>', methods=['POST'])
-def aluno_editar_salvar(id):
-    nome = request.form["nome"]
-    serie = request.form["serie"]
-    conn = sqlite3.connect("system.db")
-    c = conn.cursor()
-    c.execute(f"UPDATE student SET name = '{nome}', school_year = '{serie}'  WHERE rowid = {id}")
-    conn.commit()
-    return redirect(url_for('aluno'))
-
+    # conn = sqlite3.connect("system.db")
+    # c = conn.cursor()
+    # c.execute(f"SELECT rowid, * FROM student WHERE rowid = {id}")
+    # data = c.fetchone()
 
 
 @app.route('/aluno/deletar/<int:id>')
