@@ -1,6 +1,5 @@
 import sqlite3
 from flask import Flask, render_template
-import ipdb
 from flask import request
 from flask import abort, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
