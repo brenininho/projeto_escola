@@ -13,12 +13,11 @@ db = SQLAlchemy(app)
 
 
 class Student(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(80), unique=True)
     school_year = db.Column(db.String(80), unique=True)
 
-    def __init__(self, id, name, school_year):
-        self.id = id
+    def __init__(self, name, school_year):
         self.name = name
         self.school_year = school_year
 
@@ -28,8 +27,7 @@ class Professor(db.Model):
     name = db.Column(db.String(80), unique=True)
     serie = db.Column(db.String(80), unique=True)
 
-    def __init__(self, id, name, serie):
-        self.id = id
+    def __init__(self, name, serie):
         self.name = name
         self.serie = serie
 
@@ -40,8 +38,7 @@ class Scores(db.Model):
     score = db.Column(db.Float, unique=True)
     topic = db.Column(db.String(80), unique=True)
 
-    def __init__(self, id, id_aluno, score, topic):
-        self.id = id
+    def __init__(self, id_aluno, score, topic):
         self.id_aluno = id_aluno
         self.score = score
         self.topic = topic
@@ -66,11 +63,13 @@ def home():
 
 @app.route('/aluno')
 def aluno():
-    conn = sqlite3.connect("system.db")
-    c = conn.cursor()
-    c.execute("SELECT rowid, * FROM student")
-    data = c.fetchall()
-    return render_template("aluno.html", data=data)
+    all_data = Student.query.all()
+
+    # conn = sqlite3.connect("system.db")
+    # c = conn.cursor()
+    # c.execute("SELECT rowid, * FROM student")
+    # data = c.fetchall()
+    return render_template("aluno.html", all_data=all_data)
 
 
 @app.route('/aluno/criar')
@@ -80,13 +79,19 @@ def aluno_criar():
 
 @app.route('/aluno/criar/salvar', methods=['POST'])
 def aluno_criar_salvar():
-    nome = request.form["nome"]
-    serie = request.form["serie"]
-    conn = sqlite3.connect("system.db")
-    c = conn.cursor()
-    c.execute(f"INSERT INTO student VALUES ('{nome}', '{serie}')")
-    conn.commit()
-    return redirect(url_for('aluno'))
+    if request.method == 'POST':
+        student1 = Student(name=request.form['name'], school_year=request.form['school_year'])
+        db.session.add(student1)
+        db.session.commit()
+        return redirect(url_for('aluno'))
+
+    # nome = request.form["nome"]
+    # serie = request.form["serie"]
+    # conn = sqlite3.connect("system.db")
+    # c = conn.cursor()
+    # c.execute(f"INSERT INTO student VALUES ('{nome}', '{serie}')")
+    # conn.commit()
+
 
 
 @app.route('/aluno/editar/<int:id>')
@@ -112,20 +117,26 @@ def aluno_editar_salvar(id):
 
 @app.route('/aluno/deletar/<int:id>')
 def aluno_deletar(id):
-    conn = sqlite3.connect("system.db")
-    c = conn.cursor()
-    c.execute(f"DELETE FROM student WHERE rowid = {id}")
-    conn.commit()
+    student_delete = Student.query.get(id)
+    db.session.delete(student_delete)
+    db.session.commit()
+
+    # conn = sqlite3.connect("system.db")
+    # c = conn.cursor()
+    # c.execute(f"DELETE FROM student WHERE rowid = {id}")
+    # conn.commit()
     return redirect(url_for('aluno'))
 
 
 
 @app.route('/professor')
 def professor():
-    conn = sqlite3.connect("system.db")
-    c = conn.cursor()
-    c.execute("SELECT rowid, * FROM professor")
-    data = c.fetchall()
+    data = Professor.query.all()
+
+    # conn = sqlite3.connect("system.db")
+    # c = conn.cursor()
+    # c.execute("SELECT rowid, * FROM professor")
+    # data = c.fetchall()
     return render_template("professor.html", data=data)
 
 
@@ -140,22 +151,16 @@ def professor_criar():
 
 @app.route('/professor/criar/salvar', methods=['POST'])
 def professor_criar_salvar():
+    professor1 = Professor(name=request.form["name"], serie=request.form["serie"])
+    db.session.add(professor1)
+    db.session.commit()
 
-    nome = request.form["nome"]
-    serie = request.form["serie"]
-    conn = sqlite3.connect("system.db")
-    c = conn.cursor()
-    c.execute(f"INSERT INTO professor VALUES ('{nome}', '{serie}')")
-    conn.commit()
-    return redirect(url_for('professor'))
-
-
-@app.route('/professor/deletar/<int:id>')
-def professor_deletar(id):
-    conn = sqlite3.connect("system.db")
-    c = conn.cursor()
-    c.execute(f"DELETE FROM professor WHERE rowid = {id}")
-    conn.commit()
+    # nome = request.form["nome"]
+    # serie = request.form["serie"]
+    # conn = sqlite3.connect("system.db")
+    # c = conn.cursor()
+    # c.execute(f"INSERT INTO professor VALUES ('{nome}', '{serie}')")
+    # conn.commit()
     return redirect(url_for('professor'))
 
 
@@ -180,39 +185,58 @@ def professor_editar_salvar(id):
     return redirect(url_for('professor'))
 
 
+@app.route('/professor/deletar/<int:id>')
+def professor_deletar(id):
+    professor_delete = Professor.query.get(id)
+    db.session.delete(professor_delete)
+    db.session.commit()
+
+    # conn = sqlite3.connect("system.db")
+    # c = conn.cursor()
+    # c.execute(f"DELETE FROM professor WHERE rowid = {id}")
+    # conn.commit()
+    return redirect(url_for('professor'))
+
+
 @app.route('/nota')
 def score():
-    conn = sqlite3.connect("system.db")
-    c = conn.cursor()
-    c.execute("SELECT rowid, * FROM student")
-    alunos = c.fetchall()
-    c.execute("SELECT rowid, id_aluno, score, topic  FROM scores")
-    notas = c.fetchall()
-    data = {
-        "alunos": alunos,
-        "notas": notas
-    }
+    data = Scores.query.all()
+
+    # conn = sqlite3.connect("system.db")
+    # c = conn.cursor()
+    # c.execute("SELECT rowid, * FROM student")
+    # alunos = c.fetchall()
+    # c.execute("SELECT rowid, id_aluno, score, topic  FROM scores")
+    # notas = c.fetchall()
+    # data = {
+    #     "alunos": alunos,
+    #     "notas": notas
+    # }
     return render_template("score.html", data=data)
 
 
 @app.route('/nota/criar')
 def score_create():
-    conn = sqlite3.connect("system.db")
-    c = conn.cursor()
-    c.execute("SELECT rowid, * FROM student")
-    data = c.fetchall()
-    return render_template("score_create.html", data=data)
+    # conn = sqlite3.connect("system.db")
+    # c = conn.cursor()
+    # c.execute("SELECT rowid, * FROM student")
+    # data = c.fetchall()
+    return render_template("score_create.html")
 
 
 @app.route('/nota/criar/salvar', methods=['POST'])
 def score_create_save():
-    score = request.form["score"]
-    topic = request.form["topic"]
-    id_aluno = request.form["id_aluno"]
-    conn = sqlite3.connect("system.db")
-    c = conn.cursor()
-    c.execute(f"INSERT INTO scores VALUES ('{id_aluno}', '{score}', '{topic}' )")
-    conn.commit()
+    score1 = Scores(id_aluno=request.form["id_aluno"], score=request.form["score"], topic=request.form["topic"])
+    db.session.add(score1)
+    db.session.commit()
+
+    # score = request.form["score"]
+    # topic = request.form["topic"]
+    # id_aluno = request.form["id_aluno"]
+    # conn = sqlite3.connect("system.db")
+    # c = conn.cursor()
+    # c.execute(f"INSERT INTO scores VALUES ('{id_aluno}', '{score}', '{topic}' )")
+    # conn.commit()
     return redirect(url_for('score'))
 
 

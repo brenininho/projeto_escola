@@ -1,7 +1,4 @@
 <!DOCTYPE html>
-import sqlite3
-conn = sqlite3.connect("system.db")
-c = conn.cursor()
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,7 +9,7 @@ c = conn.cursor()
     Cadastrar Professor
 </h3>
 <form action="/professor/criar/salvar" method="post">
-    <input type="text" placeholder="digite nome do profissional" name="nome">
+    <input type="text" placeholder="digite nome do profissional" name="name" id="name">
     <br><br>
     <label for="serie">Escolha um ano:</label>
     <select name="serie" id="serie">
