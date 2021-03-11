@@ -26,7 +26,7 @@ class Student(db.Model, Base):
     def __init__(self, name, year):
         self.name = name
         self.year = year
-        # self.boletim = boletim
+        ## self.boletim = boletim
 
 
 
