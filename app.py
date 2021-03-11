@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Table, Column, Integer, ForeignKey
-import ipdb
+
 
 Base = declarative_base()
 app = Flask(__name__)
