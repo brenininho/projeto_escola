@@ -1,2 +1,2 @@
 # projeto_escola
-projeto usando sqlite3, python e html
+projeto usando sqlite3(salvado em uma branch diferente), mysqlalchemy, python e html
