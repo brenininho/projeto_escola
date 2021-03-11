@@ -3,56 +3,67 @@ from flask import Flask, render_template
 from flask import request
 from flask import abort, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import relationship
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Table, Column, Integer, ForeignKey
+import ipdb
 
+Base = declarative_base()
 app = Flask(__name__)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:123@127.0.0.1/sistema'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
 
-class Student(db.Model):
+class Student(db.Model, Base):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(80), unique=True)
-    year = db.Column(db.String(80), unique=True)
+    year = db.Column(db.String(80))
+    #boletim = relationship("Scores", back_populates="notas")
 
     def __init__(self, name, year):
         self.name = name
         self.year = year
+        # self.boletim = boletim
+
 
 
 class Professor(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True)
-    serie = db.Column(db.String(80), unique=True)
+    serie = db.Column(db.String(80))
 
     def __init__(self, name, serie):
         self.name = name
         self.serie = serie
 
 
-class Scores(db.Model):
+class Scores(db.Model, Base):
     id = db.Column(db.Integer, primary_key=True)
     id_aluno = db.Column(db.Integer, unique=True)
-    score = db.Column(db.Float, unique=True)
-    topic = db.Column(db.String(80), unique=True)
+    score = db.Column(db.Float)
+    topic = db.Column(db.String(80))
+    #notas = relationship("Student", back_populates="boletim")
 
     def __init__(self, id_aluno, score, topic):
         self.id_aluno = id_aluno
         self.score = score
         self.topic = topic
+        # self.notas = notas
 
-conn = sqlite3.connect("system.db")
-c = conn.cursor()
-
-c.execute("""
-CREATE TABLE IF NOT EXISTS professor ( name text, serie text)
-""")
-c.execute("CREATE TABLE IF NOT EXISTS scores (id_aluno int, score real, topic text)")
-c.execute("CREATE TABLE IF NOT EXISTS student ( name text, year text)")
-conn.commit()
-
-conn.close()
+# conn = sqlite3.connect("system.db")
+# c = conn.cursor()
+#
+# c.execute("""
+# CREATE TABLE IF NOT EXISTS professor ( name text, serie text)
+# """)
+# c.execute("CREATE TABLE IF NOT EXISTS scores (id_aluno int, score real, topic text)")
+# c.execute("CREATE TABLE IF NOT EXISTS student ( name text, year text)")
+# conn.commit()
+#
+# conn.close()
 
 
 @app.route('/')
@@ -210,11 +221,12 @@ def score():
 
 @app.route('/nota/criar')
 def score_create():
+    data_alunos = Student.query.all()
     # conn = sqlite3.connect("system.db")
     # c = conn.cursor()
     # c.execute("SELECT rowid, * FROM student")
     # data = c.fetchall()
-    return render_template("score_create.html")
+    return render_template("score_create.html", data_alunos=data_alunos)
 
 
 @app.route('/nota/criar/salvar', methods=['POST'])
