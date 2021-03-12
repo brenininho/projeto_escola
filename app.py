@@ -20,8 +20,6 @@ class Student(db.Model, Base):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(80), unique=True)
     year = db.Column(db.String(80))
-
-
     def __init__(self, name, year):
         self.name = name
         self.year = year
@@ -30,7 +28,7 @@ class Student(db.Model, Base):
 
 
 class Professor(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(80), unique=True)
     serie = db.Column(db.String(80))
 
@@ -72,8 +70,8 @@ def aluno_criar():
 @app.route('/aluno/criar/salvar', methods=['POST'])
 def aluno_criar_salvar():
     if request.method == 'POST':
-        student1 = Student(name=request.form['name'], year=request.form['year'])
-        db.session.add(student1)
+        student = Student(name=request.form['name'], year=request.form['year'])
+        db.session.add(student)
         db.session.commit()
         return redirect(url_for('aluno'))
 
@@ -111,8 +109,8 @@ def professor_criar():
 
 @app.route('/professor/criar/salvar', methods=['POST'])
 def professor_criar_salvar():
-    professor1 = Professor(name=request.form["name"], serie=request.form["serie"])
-    db.session.add(professor1)
+    professor = Professor(name=request.form["name"], serie=request.form["serie"])
+    db.session.add(professor)
     db.session.commit()
     return redirect(url_for('professor'))
 
@@ -156,7 +154,6 @@ def score_create():
         'college': college
     }
     return render_template("score_create.html", data=data)
-
 
 @app.route('/nota/criar/salvar', methods=['POST'])
 def score_create_save():

@@ -16,10 +16,10 @@
     <label for="year">Escolha uma série:</label>
     <select name="year" id="year">
         <option value=""></option>
-        <option value="9 Ano Fundamental" {% if data.year == "9 Ano" %} selected="selected" {% endif %}>9 Ano </option>
-        <option value="1 Ano Médio" {% if data.year == "1 Ano" %} selected="selected" {% endif %}>1 Ano Médio </option>
-        <option value="2 Ano Médio" {% if data.year == "2 Ano" %} selected="selected" {% endif %}>2 Ano Médio </option>
-        <option value="3 Ano Médio" {% if data.year == "3 Ano" %} selected="selected" {% endif %}>3 Ano Médio </option>
+        <option value="data.year" {% if data.year == "9 Ano" %} selected="selected" {% endif %}>9 Ano </option>
+        <option value="data.year" {% if data.year == "1 Ano" %} selected="selected" {% endif %}>1 Ano </option>
+        <option value="data.year" {% if data.year == "2 Ano" %} selected="selected" {% endif %}>2 Ano </option>
+        <option value="data.year" {% if data.year == "3 Ano" %} selected="selected" {% endif %}>3 Ano </option>
     </select>
     <br><br>
     <input type="submit" value="enviar"/>
