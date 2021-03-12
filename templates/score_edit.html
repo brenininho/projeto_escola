@@ -11,28 +11,28 @@
 <pre>
 
 </pre>
-
-<form action="/nota/editar/salvar/{{ data.nota.0 }}" method="post">
+{{data.score.topic}}
+<form action="/nota/editar/{{ data.score.id }}" method="post">
     <label for="score">Ensira a nota do aluno:</label><br>
-    <input type="text" placeholder="digite a nota do aluno" name="score" id="score" value="{{ data.nota.2 }}">
-    <input type="hidden" value="{{ data.nota.0 }}" name="id">
+    <input type="text" placeholder="digite a nota do aluno" name="score" id="score" value="{{ data.score.score }}">
+    <input type="hidden" value="{{ data.score.id }}" name="id">
     <br><br>
-    <label for="topic">Escolha uma matéria:</label>
-    <select name="topic" id="topic">
+    <label for="score.topic">Escolha uma matéria:</label>
+    <select name="topic" id="score.topic">
         <option value=""></option>
-        <option value="matemática" {% if data.nota[3] == "matemática" %} selected="selected" {% endif %}>matemática </option>
-        <option value="português" {% if data.nota[3] == "português" %} selected="selected" {% endif %}>português </option>
-        <option value="história" {% if data.nota[3] == "história" %} selected="selected" {% endif %}>história </option>
-        <option value="filosofia" {% if data.nota[3] == "filosofia" %} selected="selected" {% endif %}>filosofia </option>
-        <option value="ciências" {% if data.nota[3] == "ciências" %} selected="selected" {% endif %}>ciências </option>
-        <option value="sociologia" {% if data.nota[3] == "sociologia" %} selected="selected" {% endif %}>sociologia </option>
-        <option value="geografia" {% if data.nota[3] == "geografia" %} selected="selected" {% endif %}>geografia </option>
+        <option value="matematica" {% if data.score.topic == "matematica" %} selected="selected" {% endif %}>matematica </option>
+        <option value="portugues" {% if data.score.topic == "portugues" %} selected="selected" {% endif %}>português </option>
+        <option value="historia" {% if data.score.topic == "historia" %} selected="selected" {% endif %}>historia </option>
+        <option value="filosofia" {% if data.score.topic == "filosofia" %} selected="selected" {% endif %}>filosofia </option>
+        <option value="ciencias" {% if data.score.topic == "ciencias" %} selected="selected" {% endif %}>ciencias </option>
+        <option value="sociologia" {% if data.score.topic == "sociologia" %} selected="selected" {% endif %}>sociologia </option>
+        <option value="geografia" {% if data.score.topic == "geografia" %} selected="selected" {% endif %}>geografia </option>
     </select>
     <br><br>
     <select name="id_aluno" id="id_aluno">
         <option value=""></option>
-        {% for aluno in data.alunos %}
-        <option value="{{ aluno.0 }}"{% if aluno[0] == data.nota.1 %} selected="selected" {% endif %}>{{aluno.1}}</option>
+        {% for college1 in data.college %}
+        <option value="{{ college1.id }}"{% if college1.id == data.score.id_aluno %} selected="selected" {% endif %}>{{college1.name}}</option>
         {% endfor %}
     </select>
     <input type="submit" value="enviar"/>

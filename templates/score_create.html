@@ -13,19 +13,19 @@
     <br><br>
     <label for="topic">Escolha qual matéria deseja:</label>
     <select name="topic" id="topic">
-        <option value="Matemática">Matemática</option>
-        <option value="Português">Português</option>
-        <option value="História">História</option>
-        <option value="Ciências">Ciências</option>
-        <option value="Filosofia">Filosofia</option>
-        <option value="Sociologia">Sociologia</option>
-        <option value="Geografia">Geografia</option>
+        <option value="matematica">matematica</option>
+        <option value="portugues">portugues</option>
+        <option value="historia">historia</option>
+        <option value="ciencias">ciencias</option>
+        <option value="filosofia">filosofia</option>
+        <option value="sociologia">sociologia</option>
+        <option value="geografia">geografia</option>
     </select>
     <br><br>
     <select name="id_aluno" id="id_aluno">
         <option value="">Selecione o aluno</option>
-        {% for student in data_alunos %}
-            <option value="{{student.id}}">{{student.name}}</option>
+        {% for college in data.college %}
+            <option value="{{college.id}}">{{college.name}}</option>
         {% endfor %}
     </select>
     <input type="submit" value="Enviar cadastro">

@@ -22,32 +22,29 @@ td, th {
 <h3>
     <a href="/nota/criar">criar nota</a>
 </h3>
-{{ data.nota }}
-<br />
-{{ data.alunos }}
 <table>
     <tr>
     <th>Id</th>
-    <th>Nome_aluno</th>
+    <th>Nome do aluno</th>
     <th>score</th>
     <th>materia</th>
     <th>editar</th>
     <th>deletar</th>
   </tr>
-    {% for score in data.notas %}
+    {% for score in data.score %}
     <tr>
-        <td>{{ score[0] }}</td>
+        <td>{{ score.id }}</td>
         <td>
-            {% for aluno in data.alunos %}
-                {% if aluno[0] == score[1] %}
-                    {{ aluno[1] }}
+            {% for college in data.college %}
+                {% if college.id == score.id_aluno %}
+                    {{ college.name }}
                 {% endif %}
             {% endfor %}
         </td>
-        <td>{{ score.2 }}</td>
-        <td>{{ score.3 }}</td>
-        <td><a href="/nota/editar/{{ score.0 }}">editar</a></td>
-        <td><a href="/nota/deletar/{{ score.0 }}">deletar</a></td>
+        <td>{{ score.score }}</td>
+        <td>{{ score.topic }}</td>
+        <td><a href="/nota/editar/{{ score.id }}">editar</a></td>
+        <td><a href="/nota/deletar/{{ score.id }}">deletar</a></td>
     </tr>
     {% endfor %}
 </table>

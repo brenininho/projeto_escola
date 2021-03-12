@@ -13,8 +13,8 @@
     <input type="text" placeholder="digite seu nome" name="name" id="name" value="{{ data.name }}">
     <input type="hidden" value="{{ data.id }}" name="id">
     <br><br>
-    <label for="serie">Escolha uma série:</label>
-    <select name="serie" id="serie">
+    <label for="year">Escolha uma série:</label>
+    <select name="year" id="year">
         <option value=""></option>
         <option value="9 Ano Fundamental" {% if data.year == "9 Ano" %} selected="selected" {% endif %}>9 Ano </option>
         <option value="1 Ano Médio" {% if data.year == "1 Ano" %} selected="selected" {% endif %}>1 Ano Médio </option>
