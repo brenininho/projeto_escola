@@ -36,18 +36,18 @@ td, th {
   </tr>
     {% for score in data.notas %}
     <tr>
-        <td>{{ score[0] }}</td>
+        <td>{{ score.id }}</td>
         <td>
             {% for aluno in data.alunos %}
-                {% if aluno[0] == score[1] %}
+                {% if aluno.id == score.id_aluno %}
                     {{ aluno[1] }}
                 {% endif %}
             {% endfor %}
         </td>
-        <td>{{ score.2 }}</td>
-        <td>{{ score.3 }}</td>
-        <td><a href="/nota/editar/{{ score.0 }}">editar</a></td>
-        <td><a href="/nota/deletar/{{ score.0 }}">deletar</a></td>
+        <td>{{ score.id_aluno }}</td>
+        <td>{{ score.score }}</td>
+        <td><a href="/nota/editar/{{ score.id }}">editar</a></td>
+        <td><a href="/nota/deletar/{{ score.id }}">deletar</a></td>
     </tr>
     {% endfor %}
 </table>

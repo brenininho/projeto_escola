@@ -2,26 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>EDitar_professor</title>
+    <title>Editar_professor</title>
 </head>
 <body>
 <h3>
     Editar informacoes do Professor
 </h3>
-<form action="/professor/editar/salvar/{{data.0}}" method="post">
-    <input type="text" placeholder="digite nome do profissional" name="name" value="{{ data.1 }}">
-    <input type="hidden" value="{{data.0}}" name="id">
+<form action="/professor/editar/salvar/{{data.id}}" method="post">
+    <input type="text" placeholder="digite nome do profissional" name="name" value="{{ data.name }}">
+    <input type="hidden" value="{{data.id}}" name="id">
     <br><br>
     <label for="serie">Escolha o ano desejado:</label>
     <select name="serie" id="serie">
         <option value=""></option>
-        <option value="9 Ano" {% if data[2] == "9 Ano" %} selected="selected" {% endif %}>9 Ano </option>
-        <option value="1 Ano" {% if data[2] == "1 Ano" %} selected="selected" {% endif %}>1 Ano  </option>
-        <option value="2 Ano" {% if data[2] == "2 Ano" %} selected="selected" {% endif %}>2 Ano  </option>
-        <option value="3 Ano" {% if data[2] == "3 Ano" %} selected="selected" {% endif %}>3 Ano  </option>
+        <option value="9 Ano" {% if data.year == "9 Ano" %} selected="selected" {% endif %}>9 Ano  </option>
+        <option value="1 Ano" {% if data.year == "1 Ano" %} selected="selected" {% endif %}>1 Ano  </option>
+        <option value="2 Ano" {% if data.year == "2 Ano" %} selected="selected" {% endif %}>2 Ano  </option>
+        <option value="3 Ano" {% if data.year == "3 Ano" %} selected="selected" {% endif %}>3 Ano  </option>
     </select>
     <br><br>
-    <input type="submit" value="Enviar cadastro">
+    <input type="submit" value="Enviar">
 </form>
 </body>
 </html>
